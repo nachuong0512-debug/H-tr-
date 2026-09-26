@@ -104,23 +104,129 @@
             98% { left: 105%; transform: scaleX(1); }
             100% { left: 105%; transform: scaleX(1); }
         }<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+      getAuth, 
+      GoogleAuthProvider, 
+      signInWithPopup, 
+      RecaptchaVerifier, 
+      signInWithPhoneNumber, 
+      signOut, 
+      onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { 
+      getFirestore, 
+      doc, 
+      setDoc, 
+      getDoc 
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDm5Ob1Uv993XGoWOcPZ9vn1DUJWlxdjow",
-    authDomain: "giasu-12375.firebaseapp.com",
-    projectId: "giasu-12375",
-    storageBucket: "giasu-12375.firebasestorage.app",
-    messagingSenderId: "177940188445",
-    appId: "1:177940188445:web:f81505287f68391987e5f4",
-    measurementId: "G-JGXF109GSQ"
-  };
+    // Cấu hình dự án Firebase của bạn
+    const firebaseConfig = {
+      authDomain: "giasu-12375-7fc4a.firebaseapp.com",
+      projectId: "giasu-12375-7fc4a",
+      storageBucket: "giasu-12375-7fc4a.appspot.com"
+    };
+
+    // Khởi tạo ứng dụng Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUser = null;
+    let confirmationResultObj = null;
+
+    // Lắng nghe trạng thái đăng nhập
+    onAuthStateChanged(auth, (user) => {
+      currentUser = user;
+      if (user) {
+        document.getElementById('login-controls').style.display = 'none';
+        document.getElementById('user-info').style.display = 'block';
+        document.getElementById('user-display').innerText = user.email || user.phoneNumber;
+      } else {
+        document.getElementById('login-controls').style.display = 'block';
+        document.getElementById('user-info').style.display = 'none';
+      }
+    });
+
+    // 1. ĐĂNG NHẬP BẰNG GMAIL (GOOGLE)
+    window.loginWithGoogle = async () => {
+      const provider = new GoogleAuthProvider();
+      try {
+        const result = await signInWithPopup(auth, provider);
+        alert("Xin chào " + (result.user.displayName || result.user.email) + "! Đăng nhập thành công.");
+      } catch (error) {
+        alert("Lỗi đăng nhập Gmail: " + error.message);
+      }
+    };
+
+    // 2. GỬI MÃ OTP VỀ SỐ ĐIỆN THOẠI
+    window.sendOTP = async () => {
+      const phoneNumber = document.getElementById('phone-number').value;
+      if (!phoneNumber) return alert("Vui lòng nhập số điện thoại (ví dụ: +84912345678)");
+
+      window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'invisible' });
+
+      try {
+        confirmationResultObj = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
+        document.getElementById('otp-group').style.display = 'block';
+        alert("Đã gửi mã OTP về số điện thoại!");
+      } catch (error) {
+        alert("Lỗi gửi OTP: " + error.message);
+      }
+    };
+
+    // 3. XÁC THỰC MÃ OTP
+    window.verifyOTP = async () => {
+      const code = document.getElementById('otp-code').value;
+      try {
+        await confirmationResultObj.confirm(code);
+        alert("Xác thực số điện thoại thành công!");
+      } catch (error) {
+        alert("Mã OTP không đúng hoặc đã hết hạn!");
+      }
+    };
+
+    // 4. ĐĂNG XUẤT
+    window.logout = () => {
+      signOut(auth);
+    };
+
+    // 5. SAO LƯU DỮ LIỆU LÊN CLOUD
+    window.saveData = async () => {
+      if (!currentUser) return alert("Bạn cần đăng nhập trước khi sao lưu!");
+      const dataText = document.getElementById('app-data').value;
+
+      try {
+        await setDoc(doc(db, "userData", currentUser.uid), {
+          content: dataText,
+          updatedAt: new Date()
+        });
+        alert("Đã sao lưu dữ liệu thành công!");
+      } catch (error) {
+        alert("Lỗi khi lưu dữ liệu: " + error.message);
+      }
+    };
+
+    // 6. TẢI DỮ LIỆU ĐÃ SAO LƯU
+    window.loadData = async () => {
+      if (!currentUser) return alert("Bạn cần đăng nhập trước khi tải dữ liệu!");
+
+      try {
+        const docRef = doc(db, "userData", currentUser.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          document.getElementById('app-data').value = docSnap.data().content;
+          alert("Tải dữ liệu thành công!");
+        } else {
+          alert("Chưa có dữ liệu sao lưu trước đây!");
+        }
+      } catch (error) {
+        alert("Lỗi khi tải dữ liệu: " + error.message);
+      }
+    };
+  </script>
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
