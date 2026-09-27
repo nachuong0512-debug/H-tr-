@@ -3,1236 +3,617 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GiaSư Pro - Pastel Dream & Quản Lý Gia Sư Comprehensive</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
+    <title>Gia đình của bé - Quản lý Chi tiêu & Chăm sóc Chi tiết</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter & Outfit -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        lavender: {
-                            50: '#fbf7ff',
-                            100: '#f3e8ff',
-                            200: '#e9d5ff',
-                            300: '#d8b4fe',
-                            400: '#c084fc',
-                            500: '#a855f7',
-                            600: '#9333ea',
-                            700: '#7e22ce',
-                        },
-                        babyblue: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0284c7',
-                        },
-                        softpink: {
-                            50: '#fdf2f8',
-                            100: '#fce7f3',
-                            200: '#fbcfe8',
-                            300: '#f472b6',
-                            400: '#e11d48',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
+        :root {
+            --pink-pastel: #FFD1DC;
+            --pink-soft: #FFF0F5;
+            --blue-pastel: #AEC6CF;
+            --blue-sky: #E0F7FA;
+            --mint-soft: #E8F5E9;
+            --yellow-soft: #FFF9C4;
+            --text-main: #4A3E56;
+            --text-dark: #2D2338;
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --shadow: 0 10px 30px rgba(174, 198, 207, 0.25);
+            --radius: 24px;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Nunito', 'Quicksand', sans-serif;
+        }
+
         body {
-            background: linear-gradient(135deg, #f3e8ff 0%, #e0f2fe 40%, #fce7f3 75%, #fdf4ff 100%);
-            background-attachment: fixed;
+            background: linear-gradient(135deg, #FFF0F5 0%, #E0F7FA 50%, #F5EBF2 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.5); }
-        ::-webkit-scrollbar-thumb { background: #d8b4fe; border-radius: 99px; }
-        ::-webkit-scrollbar-thumb:hover { background: #c084fc; }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.95);
-            box-shadow: 0 10px 30px -5px rgba(186, 150, 230, 0.12), 0 4px 12px -2px rgba(186, 230, 253, 0.15);
-        }
-
-        .glass-input {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(216, 180, 254, 0.5);
-            transition: all 0.2s ease-in-out;
-        }
-        .glass-input:focus {
-            background: #ffffff;
-            border-color: #c084fc;
-            box-shadow: 0 0 0 3px rgba(192, 132, 252, 0.2);
-            outline: none;
-        }
-
-        @keyframes floatButterfly {
-            0% { transform: translate(0px, 0px) rotate(0deg); }
-            25% { transform: translate(18px, -22px) rotate(10deg); }
-            50% { transform: translate(35px, -8px) rotate(-6deg); }
-            75% { transform: translate(12px, -28px) rotate(8deg); }
-            100% { transform: translate(0px, 0px) rotate(0deg); }
-        }
-        .animate-butterfly-1 { animation: floatButterfly 14s ease-in-out infinite; }
-        .animate-butterfly-2 { animation: floatButterfly 18s ease-in-out infinite reverse; }
-
-        @keyframes runSquirrel {
-            0% { left: -60px; transform: scaleX(1); }
-            45% { left: 48%; transform: scaleX(1); }
-            50% { left: 50%; transform: scaleX(1) translateY(-5px); }
-            55% { left: 52%; transform: scaleX(1); }
-            98% { left: 105%; transform: scaleX(1); }
-            100% { left: 105%; transform: scaleX(1); }
-        }
-        .squirrel-runner {
-            position: fixed;
-            bottom: 12px;
-            z-index: 20;
+        /* Ambient Butterflies */
+        .butterfly {
+            position: absolute;
+            font-size: 1.4rem;
+            color: #FFB7B2;
+            opacity: 0.6;
+            animation: float 7s ease-in-out infinite;
             pointer-events: none;
-            animation: runSquirrel 38s linear infinite;
+            z-index: 0;
+        }
+        .b1 { top: 25px; left: 3%; animation-delay: 0s; }
+        .b2 { top: 120px; right: 5%; animation-delay: 2.5s; }
+        .b3 { top: 60%; left: 2%; animation-delay: 5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-14px) rotate(10deg); }
         }
 
-        @keyframes hopBunny {
-            0% { right: -60px; transform: scaleX(-1); }
-            10% { transform: scaleX(-1) translateY(-8px); }
-            20% { transform: scaleX(-1) translateY(0); }
-            30% { transform: scaleX(-1) translateY(-10px); }
-            40% { transform: scaleX(-1) translateY(0); }
-            90% { right: 105%; transform: scaleX(-1); }
-            100% { right: 105%; transform: scaleX(-1); }
-        }
-        .bunny-hopper {
-            position: fixed;
-            bottom: 10px;
-            z-index: 20;
-            pointer-events: none;
-            animation: hopBunny 45s linear infinite 12s;
+        .custom-glass {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
         }
 
-        @media print {
-            .no-print { display: none !important; }
-            .print-only { display: block !important; }
-            body { background: white !important; }
+        /* Priority Tag Styles */
+        .p-must { background: #FFEBEE; color: #C62828; border: 1px solid #FFCDD2; }      /* Phải có */
+        .p-vneeded { background: #FFF3E0; color: #EF6C00; border: 1px solid #FFE0B2; }   /* Rất cần */
+        .p-needed { background: #FFFDE7; color: #F57F17; border: 1px solid #FFF9C4; }    /* Cần */
+        .p-light { background: #E8F5E9; color: #2E7D32; border: 1px solid #C8E6C9; }     /* Hơi cần */
+        .p-think { background: #ECEFF1; color: #455A64; border: 1px solid #CFD8DC; }     /* Suy nghĩ */
+
+        /* Category Card Active Effect */
+        .cat-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
-        .print-only { display: none; }
+        .cat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255, 183, 178, 0.3);
+        }
+        .cat-card.active-cat {
+            border: 2px solid #FFB7B2 !important;
+            background: #FFF0F5 !important;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
-<body class="font-sans text-slate-700 antialiased flex flex-col min-h-screen relative overflow-x-hidden selection:bg-lavender-200 selection:text-lavender-800">
+<body class="p-3 md:p-6">
 
-    <!-- FLOATING ANIMATIONS -->
-    <div class="fixed top-12 left-10 text-lavender-400/80 text-2xl pointer-events-none animate-butterfly-1 z-10 no-print" title="Bướm tím pastel">
-        <i class="fa-solid fa-butterfly"></i>
-    </div>
-    <div class="fixed top-1/3 right-12 text-babyblue-400/80 text-3xl pointer-events-none animate-butterfly-2 z-10 no-print" title="Bướm xanh pastel">
-        <i class="fa-solid fa-butterfly"></i>
-    </div>
-    <div class="fixed top-2/3 left-1/4 text-softpink-300/80 text-xl pointer-events-none animate-butterfly-1 z-10 no-print" title="Bướm hồng pastel">
-        <i class="fa-solid fa-butterfly"></i>
-    </div>
+    <div class="butterfly b1"><i class="fa-solid fa-butterfly"></i></div>
+    <div class="butterfly b2"><i class="fa-solid fa-butterfly"></i></div>
+    <div class="butterfly b3"><i class="fa-solid fa-butterfly"></i></div>
 
-    <div class="squirrel-runner text-lavender-500/80 text-2xl no-print" title="Chú sóc tinh nghịch">
-        <i class="fa-solid fa-squirrel"></i>
-        <span class="text-[9px] font-display italic text-lavender-700 bg-white/80 px-2 py-0.5 rounded-full shadow-sm ml-1 border border-lavender-100">dạo chơi...</span>
-    </div>
+    <div class="max-w-6xl mx-auto relative z-10">
 
-    <div class="bunny-hopper text-softpink-300 text-xl no-print" title="Chú thỏ mộng mơ">
-        <i class="fa-solid fa-paw"></i>
-        <span class="text-[9px] font-display italic text-softpink-400 bg-white/80 px-2 py-0.5 rounded-full shadow-sm mr-1 border border-softpink-100">thỏ con tung tăng</span>
-    </div>
-
-    <!-- HEADER / NAVIGATION BAR -->
-    <header class="glass-card border-b border-white/80 sticky top-0 z-30 shadow-sm no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Brand Logo -->
-                <div class="flex items-center space-x-3">
-                    <div class="bg-gradient-to-br from-lavender-400 via-babyblue-300 to-softpink-300 text-white p-2.5 rounded-2xl shadow-sm flex items-center justify-center">
-                        <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
-                    </div>
-                    <div>
-                        <span class="text-xl font-display font-bold bg-gradient-to-r from-lavender-600 via-babyblue-500 to-softpink-400 bg-clip-text text-transparent">GiaSư Pro</span>
-                        <span class="hidden sm:inline-block text-[11px] text-lavender-700 font-semibold ml-2 px-2.5 py-0.5 bg-lavender-100/80 rounded-full border border-lavender-200">Pastel Edition</span>
-                    </div>
+        <!-- HEADER -->
+        <header class="custom-glass p-5 mb-6 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-[#FFB7B2] to-[#AEC6CF] flex items-center justify-center text-white text-2xl shadow-md">
+                    <i class="fa-solid fa-house-heart"></i>
                 </div>
-
-                <!-- Navigation Menu -->
-                <nav class="hidden md:flex items-center space-x-1.5">
-                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 rounded-2xl font-medium text-xs sm:text-sm transition-all text-lavender-800 bg-lavender-100/90 shadow-sm flex items-center gap-2">
-                        <i class="fa-solid fa-chart-pie text-lavender-500"></i> Tổng quan
-                    </button>
-                    <button onclick="switchTab('students')" id="nav-students" class="nav-btn px-4 py-2 rounded-2xl font-medium text-xs sm:text-sm transition-all text-slate-600 hover:text-lavender-700 hover:bg-white/60 flex items-center gap-2">
-                        <i class="fa-solid fa-users-rectangle"></i> Hồ sơ Học sinh (Gộp)
-                    </button>
-                    <button onclick="switchTab('schedule')" id="nav-schedule" class="nav-btn px-4 py-2 rounded-2xl font-medium text-xs sm:text-sm transition-all text-slate-600 hover:text-lavender-700 hover:bg-white/60 flex items-center gap-2">
-                        <i class="fa-solid fa-calendar-days"></i> Lịch dạy & Điểm danh
-                    </button>
-                </nav>
-
-                <!-- Quick Actions & Cloud Sync Button -->
-                <div class="flex items-center space-x-2">
-                    <button onclick="openModal('modal-auth')" class="bg-gradient-to-r from-purple-500 to-indigo-500 hover:opacity-90 text-white text-xs font-bold px-3.5 py-2 rounded-2xl shadow-sm transition flex items-center gap-1.5 active:scale-95">
-                        <i class="fa-solid fa-cloud-arrow-up"></i> <span id="auth-btn-text" class="hidden sm:inline">Đăng nhập / Sao lưu</span>
-                    </button>
-
-                    <button onclick="openModal('modal-add-session')" class="bg-gradient-to-r from-lavender-400 via-babyblue-400 to-softpink-300 hover:opacity-90 text-white text-xs font-bold px-3.5 py-2 rounded-2xl shadow-sm transition flex items-center gap-1.5 active:scale-95">
-                        <i class="fa-solid fa-plus"></i> <span class="hidden sm:inline">Lên lịch dạy</span>
-                    </button>
-                    <button onclick="resetDataPrompt()" title="Khôi phục dữ liệu mẫu" class="text-slate-400 hover:text-softpink-400 p-2 rounded-xl hover:bg-white/60 transition">
-                        <i class="fa-solid fa-rotate-right"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Bottom Nav -->
-        <div class="md:hidden flex justify-around border-t border-white/80 bg-white/90 py-2 px-1">
-            <button onclick="switchTab('dashboard')" id="mobile-nav-dashboard" class="mobile-nav-btn text-center text-[10px] text-lavender-700 font-medium">
-                <i class="fa-solid fa-chart-pie text-base block"></i>Tổng quan
-            </button>
-            <button onclick="switchTab('students')" id="mobile-nav-students" class="mobile-nav-btn text-center text-[10px] text-slate-500 font-medium">
-                <i class="fa-solid fa-users-rectangle text-base block"></i>Hồ sơ Học sinh
-            </button>
-            <button onclick="switchTab('schedule')" id="mobile-nav-schedule" class="mobile-nav-btn text-center text-[10px] text-slate-500 font-medium">
-                <i class="fa-solid fa-calendar-days text-base block"></i>Lịch dạy
-            </button>
-        </div>
-    </header>
-
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 z-10">
-
-        <!-- TAB 1: DASHBOARD -->
-        <section id="tab-dashboard" class="tab-content space-y-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="glass-card p-5 rounded-3xl shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Học sinh đang theo học</p>
-                        <h3 id="stat-total-students" class="text-2xl font-bold text-slate-800 mt-1">0</h3>
-                        <p class="text-[11px] text-lavender-600 font-medium mt-1"><i class="fa-solid fa-heart"></i> Đang theo học</p>
-                    </div>
-                    <div class="p-3 bg-lavender-100 text-lavender-600 rounded-2xl">
-                        <i class="fa-solid fa-users text-xl"></i>
-                    </div>
-                </div>
-
-                <div class="glass-card p-5 rounded-3xl shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Số buổi dạy tháng này</p>
-                        <h3 id="stat-month-sessions" class="text-2xl font-bold text-slate-800 mt-1">0</h3>
-                        <p id="stat-month-completed" class="text-[11px] text-babyblue-500 font-medium mt-1">Đã dạy: 0 buổi</p>
-                    </div>
-                    <div class="p-3 bg-babyblue-100 text-babyblue-500 rounded-2xl">
-                        <i class="fa-solid fa-calendar-check text-xl"></i>
-                    </div>
-                </div>
-
-                <div class="glass-card p-5 rounded-3xl shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Thu nhập tháng này</p>
-                        <h3 id="stat-month-income" class="text-2xl font-bold text-lavender-700 mt-1">0 đ</h3>
-                        <p id="stat-expected-income" class="text-[11px] text-slate-500 mt-1">Dự kiến: 0 đ</p>
-                    </div>
-                    <div class="p-3 bg-softpink-100 text-softpink-400 rounded-2xl">
-                        <i class="fa-solid fa-coins text-xl"></i>
-                    </div>
-                </div>
-
-                <div class="glass-card p-5 rounded-3xl shadow-sm flex items-center justify-between">
-                    <div>
-                        <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Học phí chưa thu</p>
-                        <h3 id="stat-pending-tuition" class="text-2xl font-bold text-amber-500 mt-1">0 đ</h3>
-                        <p class="text-[11px] text-amber-500 font-medium mt-1"><i class="fa-solid fa-clock-rotate-left"></i> Cần quyết toán</p>
-                    </div>
-                    <div class="p-3 bg-amber-100 text-amber-500 rounded-2xl">
-                        <i class="fa-solid fa-hand-holding-dollar text-xl"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2 glass-card rounded-3xl shadow-sm p-5 space-y-4">
-                    <div class="flex justify-between items-center">
-                        <h3 class="font-display font-bold text-slate-800 text-lg flex items-center gap-2">
-                            <i class="fa-solid fa-sparkles text-lavender-500"></i> Buổi học sắp tới & Hôm nay
-                        </h3>
-                        <button onclick="switchTab('schedule')" class="text-xs font-semibold text-lavender-600 hover:text-lavender-800">
-                            Xem lịch dạy <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-                    <div id="dashboard-upcoming-list" class="space-y-3"></div>
-                </div>
-
-                <div class="space-y-6">
-                    <div class="bg-gradient-to-br from-lavender-500 via-babyblue-400 to-softpink-300 text-white p-5 rounded-3xl shadow-md space-y-3">
-                        <h3 class="font-display font-bold text-base flex items-center gap-2 text-white">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i> Thao tác nhanh
-                        </h3>
-                        <div class="grid grid-cols-2 gap-2 text-xs">
-                            <button onclick="openModal('modal-add-student')" class="p-3 bg-white/20 hover:bg-white/30 rounded-2xl text-left transition flex flex-col gap-1 backdrop-blur-md">
-                                <i class="fa-solid fa-user-plus text-white text-sm"></i> Thêm học sinh
-                            </button>
-                            <button onclick="openModal('modal-add-session')" class="p-3 bg-white/20 hover:bg-white/30 rounded-2xl text-left transition flex flex-col gap-1 backdrop-blur-md">
-                                <i class="fa-solid fa-calendar-plus text-white text-sm"></i> Lên lịch dạy
-                            </button>
-                            <button onclick="switchTab('students')" class="p-3 bg-white/20 hover:bg-white/30 rounded-2xl text-left transition flex flex-col gap-1 backdrop-blur-md">
-                                <i class="fa-solid fa-folder-user text-white text-sm"></i> Hồ sơ học sinh
-                            </button>
-                            <button onclick="openModal('modal-auth')" class="p-3 bg-white/20 hover:bg-white/30 rounded-2xl text-left transition flex flex-col gap-1 backdrop-blur-md">
-                                <i class="fa-solid fa-cloud-arrow-up text-white text-sm"></i> Sao lưu Cloud
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="glass-card rounded-3xl shadow-sm p-5">
-                        <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center justify-between">
-                            <span><i class="fa-solid fa-exclamation-circle text-amber-500 mr-1"></i> Học phí chưa thu</span>
-                        </h3>
-                        <div id="dashboard-unpaid-list" class="space-y-3"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 2: STUDENTS LIST -->
-        <section id="tab-students" class="tab-content hidden space-y-5">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 glass-card p-4 rounded-3xl">
-                <div class="relative w-full sm:w-80">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                    <input type="text" id="search-student" onkeyup="renderStudents()" placeholder="Tìm tên học sinh, môn học, lớp..." class="w-full pl-9 pr-4 py-2 glass-input rounded-2xl text-xs focus:ring-2 focus:ring-lavender-300">
-                </div>
-                <button onclick="openModal('modal-add-student')" class="w-full sm:w-auto bg-gradient-to-r from-lavender-400 via-babyblue-400 to-softpink-300 hover:opacity-90 text-white font-bold px-4 py-2.5 rounded-2xl text-xs transition flex items-center justify-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-user-plus"></i> Thêm học sinh mới
-                </button>
-            </div>
-
-            <div id="student-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-        </section>
-
-        <!-- TAB 3: SCHEDULE -->
-        <section id="tab-schedule" class="tab-content hidden space-y-5">
-            <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-3 glass-card p-4 rounded-3xl">
-                <div class="flex flex-wrap items-center gap-2">
-                    <select id="filter-session-student" onchange="renderSchedule()" class="glass-input text-slate-700 text-xs rounded-2xl px-3 py-2 font-medium">
-                        <option value="ALL">Tất cả học sinh</option>
-                    </select>
-                    <select id="filter-session-status" onchange="renderSchedule()" class="glass-input text-slate-700 text-xs rounded-2xl px-3 py-2 font-medium">
-                        <option value="ALL">Tất cả trạng thái</option>
-                        <option value="PLANNED">Chưa dạy</option>
-                        <option value="COMPLETED">Đã dạy</option>
-                        <option value="CANCELLED">Hủy / Nghỉ</option>
-                    </select>
-                </div>
-                <button onclick="openModal('modal-add-session')" class="bg-gradient-to-r from-lavender-400 via-babyblue-400 to-softpink-300 hover:opacity-90 text-white font-bold px-4 py-2.5 rounded-2xl text-xs transition flex items-center justify-center gap-2 shadow-sm">
-                    <i class="fa-solid fa-plus"></i> Lên lịch mới
-                </button>
-            </div>
-
-            <div class="glass-card rounded-3xl shadow-sm overflow-hidden">
-                <div class="p-4 border-b border-white/80 bg-white/40 flex justify-between items-center">
-                    <h3 class="font-display font-bold text-slate-800 text-base">Danh sách tất cả buổi học</h3>
-                    <span id="session-count-badge" class="text-xs bg-lavender-100 text-lavender-800 px-3 py-1 rounded-full font-bold">0 buổi</span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs text-slate-600">
-                        <thead class="bg-white/60 text-lavender-800 uppercase text-[10px] font-bold tracking-wider border-b border-white/80">
-                            <tr>
-                                <th class="px-5 py-3.5">Thời gian</th>
-                                <th class="px-5 py-3.5">Học sinh</th>
-                                <th class="px-5 py-3.5">Môn / Lớp</th>
-                                <th class="px-5 py-3.5">Thời lượng</th>
-                                <th class="px-5 py-3.5">Học phí</th>
-                                <th class="px-5 py-3.5">Trạng thái</th>
-                                <th class="px-5 py-3.5 text-right">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody id="session-table-body" class="divide-y divide-white/60"></tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- MODAL AUTH & CLOUD BACKUP -->
-    <div id="modal-auth" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white/95 backdrop-blur-2xl rounded-3xl max-w-md w-full p-6 shadow-2xl relative border border-white space-y-4">
-            <button onclick="closeModal('modal-auth')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-            
-            <div class="text-center">
-                <i class="fa-solid fa-cloud-arrow-up text-4xl text-purple-500 mb-2"></i>
-                <h3 class="font-display font-bold text-slate-800 text-lg">Đăng Nhập & Sao Lưu Đám Mây</h3>
-                <p class="text-xs text-slate-500">Lưu trữ dữ liệu gia sư an toàn tuyệt đối trên Google Cloud</p>
-            </div>
-
-            <!-- CHƯA ĐĂNG NHẬP -->
-            <div id="firebase-login-box" class="space-y-3 pt-2">
-                <button onclick="window.loginWithGoogle()" class="w-full py-2.5 px-4 bg-red-500 hover:bg-red-600 text-white font-bold text-xs rounded-2xl shadow-sm transition flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-google text-base"></i> Đăng nhập bằng Gmail
-                </button>
-
-                <div class="relative flex py-2 items-center">
-                    <div class="flex-grow border-t border-slate-200"></div>
-                    <span class="flex-shrink mx-3 text-slate-400 text-[10px] font-semibold uppercase">Hoặc dùng SĐT</span>
-                    <div class="flex-grow border-t border-slate-200"></div>
-                </div>
-
                 <div>
-                    <input type="tel" id="auth-phone-number" placeholder="Số điện thoại (+84...)" class="w-full px-3.5 py-2 glass-input rounded-2xl text-xs">
-                    <div id="recaptcha-container"></div>
-                    <button onclick="window.sendOTP()" class="w-full mt-2 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-bold text-xs rounded-2xl transition">
-                        Gửi mã OTP
-                    </button>
-                </div>
-
-                <div id="otp-group" class="hidden space-y-2 pt-2 border-t border-slate-100">
-                    <input type="text" id="auth-otp-code" placeholder="Nhập mã OTP 6 số" class="w-full px-3.5 py-2 glass-input rounded-2xl text-xs">
-                    <button onclick="window.verifyOTP()" class="w-full py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs rounded-2xl transition">
-                        Xác nhận OTP
-                    </button>
+                    <h1 class="text-2xl font-extrabold text-[#2D2338]">Gia đình của bé</h1>
+                    <p class="text-xs text-purple-700/60 font-semibold">Đồng hành chăm sóc & Quản lý chi tiêu chi tiết cho từng bé</p>
                 </div>
             </div>
+            <button onclick="openAddBabyModal()" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#AEC6CF] to-[#E0F7FA] text-slate-800 font-bold hover:shadow-lg transition transform hover:-translate-y-0.5 flex items-center gap-2 text-sm">
+                <i class="fa-solid fa-plus-circle"></i> Thêm Bé Mới
+            </button>
+        </header>
 
-            <!-- ĐÃ ĐĂNG NHẬP -->
-            <div id="firebase-user-box" class="hidden space-y-3 pt-2 text-center">
-                <div class="p-3 bg-purple-50 rounded-2xl border border-purple-100">
-                    <p class="text-xs text-slate-500">Tài khoản đang kết nối:</p>
-                    <p id="firebase-user-display" class="font-bold text-purple-700 text-sm mt-0.5">---</p>
+        <!-- BABY SELECTOR BAR -->
+        <div class="flex gap-3 overflow-x-auto pb-4 mb-4 scrollbar-none" id="babySelectorBar">
+            <!-- JS dynamic content -->
+        </div>
+
+        <!-- SELECTED BABY INFO BAR -->
+        <div id="babyHeaderDetail" class="custom-glass p-4 mb-6 flex flex-wrap justify-between items-center gap-3 hidden">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#FFD1DC] flex items-center justify-center text-[#FF8B94]">
+                    <i class="fa-solid fa-baby text-lg"></i>
                 </div>
-
-                <div class="grid grid-cols-2 gap-2">
-                    <button onclick="window.saveDataToCloud()" class="py-2.5 px-3 bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs rounded-2xl transition shadow-sm flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-cloud-arrow-up"></i> Lưu lên Cloud
-                    </button>
-                    <button onclick="window.loadDataFromCloud()" class="py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-2xl transition shadow-sm flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-cloud-arrow-down"></i> Tải từ Cloud
-                    </button>
+                <div>
+                    <h2 id="currentBabyTitle" class="font-extrabold text-lg text-slate-800">Tên Bé</h2>
+                    <p id="currentBabyDob" class="text-xs text-gray-500">Ngày sinh: --</p>
                 </div>
-
-                <button onclick="window.logoutFirebase()" class="w-full py-2 text-slate-400 hover:text-slate-600 text-xs font-semibold">
-                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Đăng xuất
+            </div>
+            <div class="flex gap-2">
+                <button onclick="openEditBabyModal()" class="px-3 py-1.5 rounded-xl bg-sky-100 text-sky-800 text-xs font-bold hover:bg-sky-200 transition flex items-center gap-1">
+                    <i class="fa-solid fa-pen"></i> Sửa Thông Tin
+                </button>
+                <button onclick="deleteCurrentBaby()" class="px-3 py-1.5 rounded-xl bg-rose-100 text-rose-700 text-xs font-bold hover:bg-rose-200 transition flex items-center gap-1">
+                    <i class="fa-solid fa-trash"></i> Xóa Bé
                 </button>
             </div>
         </div>
-    </div>
 
-    <!-- MODAL STUDENT PROFILE -->
-    <div id="modal-student-profile" class="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white/95 backdrop-blur-2xl rounded-3xl max-w-3xl w-full p-6 shadow-2xl relative border border-white my-8 max-h-[90vh] flex flex-col">
-            <button onclick="closeModal('modal-student-profile')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 z-10"><i class="fa-solid fa-xmark text-lg"></i></button>
-            
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-4 border-b border-slate-100">
+        <!-- GRAND TOTAL CARD -->
+        <div class="custom-glass p-5 mb-6 flex flex-wrap justify-between items-center gap-4 bg-gradient-to-r from-white/90 to-rose-50/60">
+            <div>
+                <span id="overviewLabel" class="text-xs font-extrabold tracking-wider text-purple-700 uppercase">TỔNG CHI TIÊU TOÀN GIA ĐÌNH</span>
+                <p id="overviewSub" class="text-xs text-gray-500 mt-0.5">Chi phí tổng hợp của tất cả danh mục</p>
+            </div>
+            <div id="totalExpenseDisplay" class="text-3xl font-extrabold text-rose-500">
+                0 VNĐ
+            </div>
+        </div>
+
+        <!-- 6 INTERACTIVE CATEGORIES GRID -->
+        <div class="mb-4">
+            <h3 class="text-sm font-bold text-slate-700 mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-hand-pointer text-rose-400"></i> Click trực tiếp vào danh mục bên dưới để xem/thêm chi tiêu chi tiết:
+            </h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5" id="categoriesGrid">
+                <!-- Javascript will inject 6 categories here -->
+            </div>
+        </div>
+
+        <!-- DETAILED EXPENSE PANEL FOR SELECTED CATEGORY -->
+        <div class="custom-glass p-6 mt-6">
+            <div class="flex flex-wrap justify-between items-center pb-4 mb-4 border-b border-dashed border-purple-100 gap-3">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-lavender-400 via-babyblue-300 to-softpink-300 text-white font-bold flex items-center justify-center text-lg shadow-sm">
-                        <i class="fa-solid fa-user-graduate"></i>
-                    </div>
+                    <span id="activeCatIcon" class="text-2xl">🥛</span>
                     <div>
-                        <h2 id="prof-student-name" class="font-display font-bold text-slate-800 text-lg">---</h2>
-                        <div class="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
-                            <span id="prof-student-grade" class="px-2.5 py-0.5 bg-lavender-100 text-lavender-800 font-semibold rounded-full text-[10px]">--</span>
-                            <span id="prof-student-subject" class="px-2.5 py-0.5 bg-babyblue-100 text-babyblue-800 font-semibold rounded-full text-[10px]">--</span>
-                            <span id="prof-student-phone" class="text-slate-500"><i class="fa-solid fa-phone text-[10px]"></i> --</span>
-                        </div>
+                        <h3 id="activeCatTitle" class="font-extrabold text-lg text-slate-800">Danh Mục: Dinh Dưỡng</h3>
+                        <p class="text-xs text-gray-500" id="activeCatSubtitle">Danh sách tất cả các khoản chi tiêu bên trong</p>
                     </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-right">
+                        <span class="text-xs text-gray-400 block font-semibold">Tổng chi mục này:</span>
+                        <span id="activeCatTotal" class="font-extrabold text-indigo-600 text-lg">0 VNĐ</span>
+                    </div>
+                    <button onclick="openAddExpenseModal()" class="px-4 py-2 rounded-full bg-gradient-to-r from-[#FFB7B2] to-[#FFDAC1] text-slate-800 font-bold text-xs shadow hover:shadow-md transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-plus"></i> Thêm Chi Tiêu
+                    </button>
                 </div>
             </div>
 
-            <div class="flex border-b border-slate-100 my-3 gap-2 overflow-x-auto">
-                <button onclick="switchProfileTab('sessions')" id="prof-tab-sessions" class="prof-nav-btn px-4 py-2 font-bold text-xs rounded-2xl bg-lavender-100 text-lavender-800 transition">
-                    <i class="fa-solid fa-wallet mr-1"></i> Lịch & Học Phí
-                </button>
-                <button onclick="switchProfileTab('grades')" id="prof-tab-grades" class="prof-nav-btn px-4 py-2 font-medium text-xs text-slate-500 hover:bg-slate-100 rounded-2xl transition">
-                    <i class="fa-solid fa-star mr-1"></i> Điểm & Lộ Trình
-                </button>
+            <!-- Expense Items Table / List -->
+            <div id="expenseListContainer" class="space-y-3">
+                <!-- Javascript will render inner expense items here -->
             </div>
+        </div>
 
-            <div id="prof-content-sessions" class="prof-subtab space-y-4 overflow-y-auto flex-grow pr-1">
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    <div class="bg-lavender-50/80 p-3.5 rounded-2xl border border-lavender-100">
-                        <span class="text-[10px] uppercase font-bold text-slate-400 block">Đã dạy</span>
-                        <span id="prof-stat-count" class="text-base font-bold text-slate-800">0 buổi</span>
-                    </div>
-                    <div class="bg-amber-50/80 p-3.5 rounded-2xl border border-amber-100">
-                        <span class="text-[10px] uppercase font-bold text-amber-600 block">Công nợ chưa thu</span>
-                        <span id="prof-stat-unpaid" class="text-base font-bold text-amber-600">0 đ</span>
-                    </div>
-                    <div class="col-span-2 sm:col-span-1 bg-emerald-50/80 p-3.5 rounded-2xl border border-emerald-100 flex justify-between items-center">
-                        <div>
-                            <span class="text-[10px] uppercase font-bold text-emerald-600 block">Đã thu</span>
-                            <span id="prof-stat-paid" class="text-base font-bold text-emerald-600">0 đ</span>
-                        </div>
-                    </div>
+    </div>
+
+    <!-- MODAL 1: BABY (ADD / EDIT) -->
+    <div id="babyModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl border border-rose-100">
+            <h3 id="babyModalTitle" class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-baby text-rose-400"></i> Thêm Bé Mới
+            </h3>
+            <input type="hidden" id="editBabyId">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Tên gọi của bé *</label>
+                    <input type="text" id="babyNameInput" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-rose-300 focus:ring-2 focus:ring-rose-100 outline-none text-sm" placeholder="Ví dụ: Bé Mon, Bé Bơ...">
                 </div>
-
-                <div class="bg-white/80 rounded-2xl border border-slate-100 overflow-hidden">
-                    <table class="w-full text-left text-xs">
-                        <thead class="bg-slate-50 text-slate-500 font-semibold border-b">
-                            <tr>
-                                <th class="p-2.5">Ngày dạy</th>
-                                <th class="p-2.5">Nội dung</th>
-                                <th class="p-2.5">Học phí</th>
-                                <th class="p-2.5">Trạng thái</th>
-                            </tr>
-                        </thead>
-                        <tbody id="prof-session-rows" class="divide-y divide-slate-100"></tbody>
-                    </table>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Ngày sinh</label>
+                    <input type="date" id="babyDobInput" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-rose-300 focus:ring-2 focus:ring-rose-100 outline-none text-sm">
                 </div>
             </div>
-
-            <div id="prof-content-grades" class="prof-subtab hidden space-y-4 overflow-y-auto flex-grow pr-1">
-                <div class="bg-white/80 rounded-2xl border border-slate-100 overflow-hidden">
-                    <table class="w-full text-left text-xs">
-                        <thead class="bg-slate-50 text-slate-500 font-semibold border-b">
-                            <tr>
-                                <th class="p-2.5">Ngày</th>
-                                <th class="p-2.5">Tên bài test</th>
-                                <th class="p-2.5">Điểm</th>
-                                <th class="p-2.5">Nhận xét</th>
-                            </tr>
-                        </thead>
-                        <tbody id="prof-grade-rows" class="divide-y divide-slate-100"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="mt-4 pt-3 border-t border-slate-100 flex justify-end">
-                <button onclick="closeModal('modal-student-profile')" class="px-6 py-2 bg-gradient-to-r from-lavender-400 via-babyblue-400 to-softpink-300 text-white font-bold text-xs rounded-2xl shadow-sm hover:opacity-90 active:scale-95 transition">
-                    OK - Hoàn tất
-                </button>
+            <div class="flex justify-end gap-2 mt-6">
+                <button onclick="closeModal('babyModal')" class="px-4 py-2 rounded-full bg-gray-100 text-gray-600 font-bold text-xs hover:bg-gray-200">Hủy</button>
+                <button onclick="saveBaby()" class="px-5 py-2 rounded-full bg-rose-400 text-white font-bold text-xs hover:bg-rose-500 shadow-md">Lưu Lại</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL ADD STUDENT -->
-    <div id="modal-add-student" class="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white/95 backdrop-blur-2xl rounded-3xl max-w-md w-full p-6 shadow-2xl relative border border-white">
-            <button onclick="closeModal('modal-add-student')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <h3 id="modal-student-title" class="font-display font-bold text-slate-800 text-lg mb-4">Thêm học sinh mới</h3>
-            <form id="form-student" onsubmit="saveStudent(event)" class="space-y-3.5 text-xs">
-                <input type="hidden" id="student-id">
+    <!-- MODAL 2: EXPENSE ITEM (ADD / EDIT INSIDE CATEGORY) -->
+    <div id="expenseModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl border border-sky-100">
+            <h3 id="expenseModalTitle" class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-cart-plus text-sky-400"></i> Thêm Khoản Chi Tiêu
+            </h3>
+            <input type="hidden" id="editExpenseId">
+            <div class="space-y-3.5">
                 <div>
-                    <label class="block font-semibold text-slate-600 mb-1">Họ và tên học sinh *</label>
-                    <input type="text" id="student-name" required placeholder="Nguyễn Văn An" class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block font-semibold text-slate-600 mb-1">Lớp / Khối</label>
-                        <input type="text" id="student-grade" placeholder="Lớp 10" class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
-                    </div>
-                    <div>
-                        <label class="block font-semibold text-slate-600 mb-1">Môn học</label>
-                        <input type="text" id="student-subject" placeholder="Toán, Lý" class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block font-semibold text-slate-600 mb-1">Học phí (VNĐ/buổi) *</label>
-                        <input type="number" id="student-rate" required min="0" step="10000" placeholder="200000" class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
-                    </div>
-                    <div>
-                        <label class="block font-semibold text-slate-600 mb-1">Thời lượng (Giờ)</label>
-                        <input type="number" id="student-duration" value="1.5" min="0.5" step="0.5" class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
-                    </div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Áp dụng cho bé *</label>
+                    <select id="expBabySelect" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-sky-300 outline-none text-sm"></select>
                 </div>
                 <div>
-                    <label class="block font-semibold text-slate-600 mb-1">SĐT Phụ huynh / Học sinh</label>
-                    <input type="tel" id="student-phone" placeholder="0912 345 678" class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
-                </div>
-                <div>
-                    <label class="block font-semibold text-slate-600 mb-1">Ghi chú bổ sung</label>
-                    <textarea id="student-notes" rows="2" placeholder="Địa chỉ nhà, mục tiêu..." class="w-full px-3.5 py-2.5 glass-input rounded-2xl"></textarea>
-                </div>
-                <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="closeModal('modal-add-student')" class="px-4 py-2 bg-slate-100 text-slate-600 font-medium rounded-2xl hover:bg-slate-200">Hủy</button>
-                    <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-lavender-400 via-babyblue-400 to-softpink-300 hover:opacity-90 text-white font-bold rounded-2xl shadow-md transition active:scale-95">OK - Lưu học sinh</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL ADD SESSION -->
-    <div id="modal-add-session" class="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white/95 backdrop-blur-2xl rounded-3xl max-w-md w-full p-6 shadow-2xl relative border border-white">
-            <button onclick="closeModal('modal-add-session')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-            <h3 id="modal-session-title" class="font-display font-bold text-slate-800 text-lg mb-4">Lên lịch buổi học</h3>
-            <form id="form-session" onsubmit="saveSession(event)" class="space-y-3.5 text-xs">
-                <input type="hidden" id="session-id">
-                <div>
-                    <label class="block font-semibold text-slate-600 mb-1">Chọn học sinh *</label>
-                    <select id="session-student-id" required onchange="autoFillSessionRate()" class="w-full px-3.5 py-2.5 glass-input rounded-2xl"></select>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block font-semibold text-slate-600 mb-1">Ngày dạy *</label>
-                        <input type="date" id="session-date" required class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
-                    </div>
-                    <div>
-                        <label class="block font-semibold text-slate-600 mb-1">Giờ bắt đầu *</label>
-                        <input type="time" id="session-time" required class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block font-semibold text-slate-600 mb-1">Thời lượng (Giờ)</label>
-                        <input type="number" id="session-hours" step="0.5" min="0.5" value="1.5" oninput="calculateSessionFee()" class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
-                    </div>
-                    <div>
-                        <label class="block font-semibold text-slate-600 mb-1">Học phí (VNĐ)</label>
-                        <input type="number" id="session-fee" step="5000" class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
-                    </div>
-                </div>
-                <div>
-                    <label class="block font-semibold text-slate-600 mb-1">Trạng thái buổi học</label>
-                    <select id="session-status" class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
-                        <option value="PLANNED">Chưa dạy (Sắp tới)</option>
-                        <option value="COMPLETED">Đã dạy hoàn thành</option>
-                        <option value="CANCELLED">Hủy / Nghỉ</option>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Danh mục *</label>
+                    <select id="expCategorySelect" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-sky-300 outline-none text-sm">
+                        <option value="Dinh dưỡng">🥛 Dinh dưỡng (Sữa, Ăn dặm, Vitamin...)</option>
+                        <option value="Vệ sinh">👶 Vệ sinh (Tã bỉm, Khăn ướt, Sữa tắm...)</option>
+                        <option value="Thời trang">👗 Thời trang (Quần áo, Mũ, Giày dép...)</option>
+                        <option value="Nghỉ ngơi">🌙 Nghỉ ngơi (Gối chống trào, Nôi, Cũi...)</option>
+                        <option value="Vui chơi">🧸 Vui chơi (Đồ chơi thông minh, Xe đẩy...)</option>
+                        <option value="Tiêm ngừa">💉 Tiêm ngừa (Vắc xin, Khám định kỳ...)</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block font-semibold text-slate-600 mb-1">Nội dung bài học / Ghi chú</label>
-                    <input type="text" id="session-notes" placeholder="VD: Giải đề Chuyên đề 3..." class="w-full px-3.5 py-2.5 glass-input rounded-2xl">
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Tên món đồ / dịch vụ (Chi cái gì?) *</label>
+                    <input type="text" id="expTitleInput" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-sky-300 outline-none text-sm" placeholder="Ví dụ: Sữa Aptamil, Bỉm Moony, Vắc xin 6in1...">
                 </div>
-                <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" onclick="closeModal('modal-add-session')" class="px-4 py-2 bg-slate-100 text-slate-600 font-medium rounded-2xl hover:bg-slate-200">Hủy</button>
-                    <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-lavender-400 via-babyblue-400 to-softpink-300 hover:opacity-90 text-white font-bold rounded-2xl shadow-md transition active:scale-95">OK - Xác nhận</button>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Số tiền chi (VNĐ) *</label>
+                    <input type="number" id="expAmountInput" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-sky-300 outline-none text-sm" placeholder="Ví dụ: 450000">
                 </div>
-            </form>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Trạng thái / Mức độ ưu tiên</label>
+                    <select id="expPrioritySelect" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-sky-300 outline-none text-sm">
+                        <option value="Phải có">🔴 Phải có (Rất bắt buộc)</option>
+                        <option value="Rất cần">🟠 Rất cần</option>
+                        <option value="Cần" selected>🟡 Cần</option>
+                        <option value="Hơi cần">🟢 Hơi cần</option>
+                        <option value="Suy nghĩ">⚪ Suy nghĩ (Cân nhắc thêm)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 mb-1">Ghi chú bổ sung</label>
+                    <input type="text" id="expNoteInput" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-sky-300 outline-none text-sm" placeholder="Ví dụ: Mua tại cửa hàng Con Cưng...">
+                </div>
+            </div>
+            <div class="flex justify-end gap-2 mt-6">
+                <button onclick="closeModal('expenseModal')" class="px-4 py-2 rounded-full bg-gray-100 text-gray-600 font-bold text-xs hover:bg-gray-200">Hủy</button>
+                <button onclick="saveExpense()" class="px-5 py-2 rounded-full bg-sky-400 text-white font-bold text-xs hover:bg-sky-500 shadow-md">Lưu Chi Tiêu</button>
+            </div>
         </div>
     </div>
 
-    <!-- FIREBASE CLOUD SDK INTEGRATION -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { 
-            getAuth, 
-            GoogleAuthProvider, 
-            signInWithPopup, 
-            RecaptchaVerifier, 
-            signInWithPhoneNumber, 
-            signOut, 
-            onAuthStateChanged 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { 
-            getFirestore, 
-            doc, 
-            setDoc, 
-            getDoc 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    <script>
+        // Default initial data structure
+        const CATEGORIES_CONFIG = [
+            { key: 'Dinh dưỡng', name: 'Dinh Dưỡng', icon: '🥛', color: '#FFF0F5' },
+            { key: 'Vệ sinh', name: 'Vệ Sinh', icon: '👶', color: '#E0F7FA' },
+            { key: 'Thời trang', name: 'Thời Trang', icon: '👗', color: '#FFF9C4' },
+            { key: 'Nghỉ ngơi', name: 'Nghỉ Ngơi', icon: '🌙', color: '#E8F5E9' },
+            { key: 'Vui chơi', name: 'Vui Chơi', icon: '🧸', color: '#FFE0B2' },
+            { key: 'Tiêm ngừa', name: 'Tiêm Ngừa', icon: '💉', color: '#E1BEE7' }
+        ];
 
-        // Cấu hình Firebase đầy đủ chìa khóa API dự án giasu-12375-7fc4a
-        const firebaseConfig = {
-            apiKey: "AIzaSyDm5Ob1Uv993XGoWOcPZ9vn1DUJWlxdjow", // <-- DÒNG CẦN SỬA
-            authDomain: "giasu-12375-7fc4a.firebaseapp.com",
-            projectId: "giasu-12375-7fc4a",
-            storageBucket: "giasu-12375-7fc4a.appspot.com",
-            messagingSenderId: "177940188445",
-            appId: "1:177940188445:web:f81505287f68391987e5f4"
+        let state = {
+            babies: JSON.parse(localStorage.getItem('gddb_babies_v2')) || [
+                { id: 'b1', name: 'Bé Mây', dob: '2023-05-10' },
+                { id: 'b2', name: 'Bé Tôm', dob: '2024-01-15' }
+            ],
+            expenses: JSON.parse(localStorage.getItem('gddb_expenses_v2')) || [
+                { id: 'e1', babyId: 'b1', category: 'Dinh dưỡng', title: 'Sữa công thức Meiji', amount: 520000, priority: 'Phải có', note: 'Hộp 800g' },
+                { id: 'e2', babyId: 'b1', category: 'Vệ sinh', title: 'Tã bỉm Moony Natural', amount: 380000, priority: 'Phải có', note: 'Size M 46 miếng' },
+                { id: 'e3', babyId: 'b2', category: 'Thời trang', title: 'Bộ body đùi cotton', amount: 180000, priority: 'Cần', note: 'Mặc mùa hè' },
+                { id: 'e4', babyId: 'b2', category: 'Tiêm ngừa', title: 'Mũi 6 trong 1', amount: 1050000, priority: 'Phải có', note: 'Mũi nhắc lại' }
+            ],
+            selectedBabyId: 'FAMILY', // 'FAMILY' or baby ID
+            activeCategory: 'Dinh dưỡng' // Default category active in inner panel
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        function saveToStorage() {
+            localStorage.setItem('gddb_babies_v2', JSON.stringify(state.babies));
+            localStorage.setItem('gddb_expenses_v2', JSON.stringify(state.expenses));
+        }
 
-        let currentUser = null;
-        let confirmationResultObj = null;
+        function init() {
+            renderBabySelector();
+            renderCategoryGrid();
+            renderMainView();
+            populateBabyDropdown();
+        }
 
-        // Theo dõi trạng thái đăng nhập
-        onAuthStateChanged(auth, (user) => {
-            currentUser = user;
-            if (user) {
-                document.getElementById('firebase-login-box').classList.add('hidden');
-                document.getElementById('firebase-user-box').classList.remove('hidden');
-                document.getElementById('firebase-user-display').innerText = user.email || user.phoneNumber;
-                document.getElementById('auth-btn-text').innerText = "Đã kết nối Cloud";
+        // Render Baby Navigation Bar
+        function renderBabySelector() {
+            const container = document.getElementById('babySelectorBar');
+            let html = `
+                <div onclick="selectBaby('FAMILY')" class="px-4 py-2.5 rounded-full cursor-pointer transition flex items-center gap-2 border-2 whitespace-nowrap ${state.selectedBabyId === 'FAMILY' ? 'border-[#AEC6CF] bg-white shadow-md' : 'border-transparent bg-white/70 hover:bg-white'}">
+                    <div class="w-7 h-7 rounded-full bg-sky-200 text-sky-700 flex items-center justify-center text-xs"><i class="fa-solid fa-users"></i></div>
+                    <div>
+                        <div class="text-xs font-bold text-slate-800">Toàn Gia Đình</div>
+                        <div class="text-[10px] text-gray-400">Tất cả ${state.babies.length} bé</div>
+                    </div>
+                </div>
+            `;
+
+            state.babies.forEach(baby => {
+                const isActive = state.selectedBabyId === baby.id;
+                html += `
+                    <div onclick="selectBaby('${baby.id}')" class="px-4 py-2.5 rounded-full cursor-pointer transition flex items-center gap-2 border-2 whitespace-nowrap ${isActive ? 'border-rose-300 bg-rose-50 shadow-md' : 'border-transparent bg-white/70 hover:bg-white'}">
+                        <div class="w-7 h-7 rounded-full bg-rose-200 text-rose-700 flex items-center justify-center text-xs"><i class="fa-solid fa-baby"></i></div>
+                        <div>
+                            <div class="text-xs font-bold text-slate-800">${baby.name}</div>
+                            <div class="text-[10px] text-gray-400">Em bé</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function selectBaby(id) {
+            state.selectedBabyId = id;
+            renderBabySelector();
+            renderMainView();
+        }
+
+        // Render Category Interactive Cards
+        function renderCategoryGrid() {
+            const container = document.getElementById('categoriesGrid');
+            container.innerHTML = CATEGORIES_CONFIG.map(cat => {
+                const isActive = state.activeCategory === cat.key;
+                return `
+                    <div onclick="selectCategory('${cat.key}')" class="cat-card p-3.5 rounded-2xl bg-white border border-gray-100 text-center ${isActive ? 'active-cat' : ''}">
+                        <div class="text-2xl mb-1">${cat.icon}</div>
+                        <div class="font-bold text-xs text-slate-700">${cat.name}</div>
+                        <div id="catSum-${cat.key}" class="text-xs font-extrabold text-indigo-600 mt-1">0 đ</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectCategory(catKey) {
+            state.activeCategory = catKey;
+            renderCategoryGrid();
+            renderMainView();
+        }
+
+        // Main View Calculation & Rendering
+        function renderMainView() {
+            const babyHeaderDetail = document.getElementById('babyHeaderDetail');
+            const overviewLabel = document.getElementById('overviewLabel');
+            const overviewSub = document.getElementById('overviewSub');
+            const totalDisplay = document.getElementById('totalExpenseDisplay');
+
+            // Filter Expenses based on selected baby
+            let relevantExpenses = state.selectedBabyId === 'FAMILY' 
+                ? state.expenses 
+                : state.expenses.filter(e => e.babyId === state.selectedBabyId);
+
+            // Update Baby Header
+            if (state.selectedBabyId === 'FAMILY') {
+                babyHeaderDetail.classList.add('hidden');
+                overviewLabel.innerText = 'TỔNG CHI TIÊU TOÀN GIA ĐÌNH';
+                overviewSub.innerText = 'Tổng các khoản chi của tất cả ' + state.babies.length + ' em bé';
             } else {
-                document.getElementById('firebase-login-box').classList.remove('hidden');
-                document.getElementById('firebase-user-box').classList.add('hidden');
-                document.getElementById('auth-btn-text').innerText = "Đăng nhập / Sao lưu";
+                const baby = state.babies.find(b => b.id === state.selectedBabyId);
+                if (baby) {
+                    babyHeaderDetail.classList.remove('hidden');
+                    document.getElementById('currentBabyTitle').innerText = baby.name;
+                    document.getElementById('currentBabyDob').innerText = 'Ngày sinh: ' + (baby.dob || 'Chưa cập nhật');
+                    overviewLabel.innerText = `TỔNG CHI TIÊU CỦA ${baby.name.toUpperCase()}`;
+                    overviewSub.innerText = 'Tất cả chi phí dành riêng cho ' + baby.name;
+                }
             }
-        });
 
-        // 1. Đăng nhập Gmail
-        window.loginWithGoogle = async () => {
-            const provider = new GoogleAuthProvider();
-            try {
-                const result = await signInWithPopup(auth, provider);
-                alert("Xin chào " + (result.user.displayName || result.user.email) + "! Đăng nhập thành công.");
-            } catch (error) {
-                alert("Lỗi đăng nhập Google: " + error.message);
-            }
-        };
+            // Overall Total Amount
+            const totalAmount = relevantExpenses.reduce((sum, item) => sum + Number(item.amount), 0);
+            totalDisplay.innerText = totalAmount.toLocaleString('vi-VN') + ' VNĐ';
 
-        // 2. Gửi OTP Phone
-        window.sendOTP = async () => {
-            const phoneNumber = document.getElementById('auth-phone-number').value.trim();
-            if (!phoneNumber) return alert("Vui lòng nhập số điện thoại định dạng +84...");
+            // Category sums on cards
+            CATEGORIES_CONFIG.forEach(cat => {
+                const catSum = relevantExpenses
+                    .filter(e => e.category === cat.key)
+                    .reduce((sum, item) => sum + Number(item.amount), 0);
+                const el = document.getElementById(`catSum-${cat.key}`);
+                if (el) el.innerText = catSum.toLocaleString('vi-VN') + ' đ';
+            });
 
-            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'invisible' });
-
-            try {
-                confirmationResultObj = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
-                document.getElementById('otp-group').classList.remove('hidden');
-                alert("Đã gửi mã OTP!");
-            } catch (error) {
-                alert("Lỗi gửi OTP: " + error.message);
-            }
-        };
-
-        // 3. Xác thực OTP
-        window.verifyOTP = async () => {
-            const code = document.getElementById('auth-otp-code').value.trim();
-            try {
-                await confirmationResultObj.confirm(code);
-                alert("Đăng nhập số điện thoại thành công!");
-            } catch (error) {
-                alert("Mã OTP không đúng!");
-            }
-        };
-
-        // 4. Đăng xuất
-        window.logoutFirebase = () => {
-            signOut(auth);
-        };
-
-        // 5. Lưu dữ liệu từ LocalStorage lên Cloud Firestore
-        window.saveDataToCloud = async () => {
-            if (!currentUser) return alert("Bạn cần đăng nhập trước khi lưu!");
+            // Active Category Inner View Panel Update
+            const activeCatObj = CATEGORIES_CONFIG.find(c => c.key === state.activeCategory) || CATEGORIES_CONFIG[0];
+            document.getElementById('activeCatIcon').innerText = activeCatObj.icon;
+            document.getElementById('activeCatTitle').innerText = `Danh Mục: ${activeCatObj.name}`;
             
-            const backupData = {
-                students: window.students,
-                sessions: window.sessions,
-                updatedAt: new Date().toISOString()
+            const activeCatExpenses = relevantExpenses.filter(e => e.category === state.activeCategory);
+            const activeCatTotalAmount = activeCatExpenses.reduce((sum, item) => sum + Number(item.amount), 0);
+            document.getElementById('activeCatTotal').innerText = activeCatTotalAmount.toLocaleString('vi-VN') + ' VNĐ';
+
+            // Render inner items list
+            renderExpenseList(activeCatExpenses);
+        }
+
+        // Render List of Expense Items inside selected Category
+        function renderExpenseList(items) {
+            const container = document.getElementById('expenseListContainer');
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-400">
+                        <i class="fa-solid fa-box-open text-3xl mb-2 block"></i>
+                        <span class="text-xs">Chưa có khoản chi nào trong danh mục <b>${state.activeCategory}</b> này</span>
+                    </div>
+                `;
+                return;
+            }
+
+            const priorityMap = {
+                'Phải có': 'p-must',
+                'Rất cần': 'p-vneeded',
+                'Cần': 'p-needed',
+                'Hơi cần': 'p-light',
+                'Suy nghĩ': 'p-think'
             };
 
-            try {
-                await setDoc(doc(db, "userData", currentUser.uid), backupData);
-                alert("Đã sao lưu toàn bộ dữ liệu lên Cloud thành công!");
-            } catch (error) {
-                alert("Lỗi lưu Cloud: " + error.message);
-            }
-        };
+            container.innerHTML = items.map(item => {
+                const baby = state.babies.find(b => b.id === item.babyId);
+                const pClass = priorityMap[item.priority] || 'p-think';
 
-        // 6. Tải dữ liệu từ Cloud Firestore về LocalStorage
-        window.loadDataFromCloud = async () => {
-            if (!currentUser) return alert("Bạn cần đăng nhập trước khi tải!");
-
-            try {
-                const docRef = doc(db, "userData", currentUser.uid);
-                const docSnap = await getDoc(docRef);
-
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    window.students = data.students || [];
-                    window.sessions = data.sessions || [];
-                    window.saveToStorage();
-                    window.refreshAllViews();
-                    alert("Tải dữ liệu từ Cloud thành công!");
-                    window.closeModal('modal-auth');
-                } else {
-                    alert("Chưa có dữ liệu sao lưu nào trên Cloud!");
-                }
-            } catch (error) {
-                alert("Lỗi tải Cloud: " + error.message);
-            }
-        };
-    </script>
-
-    <!-- MAIN APP SCRIPT -->
-    <script>
-        const STORAGE_KEY_STUDENTS = 'giasu_pastel_students_v2';
-        const STORAGE_KEY_SESSIONS = 'giasu_pastel_sessions_v2';
-
-        const mockStudents = [
-            { id: 'st_1', name: 'Nguyễn Minh Anh', grade: 'Lớp 12', subject: 'Toán Nâng Cao', rate: 250000, defaultDuration: 2, phone: '0905 123 456', notes: 'Mục tiêu ôn thi ĐH A1' },
-            { id: 'st_2', name: 'Trần Bảo Nam', grade: 'Lớp 9', subject: 'Tiếng Anh KET', rate: 200000, defaultDuration: 1.5, phone: '0914 987 654', notes: 'Luyện giao tiếp' }
-        ];
-
-        const mockSessions = [
-            { id: 'se_1', studentId: 'st_1', date: '2026-09-20', time: '18:00', durationHours: 2, fee: 250000, status: 'COMPLETED', isPaid: true, notes: 'Chuyên đề Tích phân' },
-            { id: 'se_2', studentId: 'st_1', date: '2026-09-23', time: '18:00', durationHours: 2, fee: 250000, status: 'COMPLETED', isPaid: false, notes: 'Luyện đề thi thử lần 1' }
-        ];
-
-        window.students = [];
-        window.sessions = [];
-        let activeProfileStudentId = null;
-
-        function initData() {
-            const st = localStorage.getItem(STORAGE_KEY_STUDENTS);
-            const se = localStorage.getItem(STORAGE_KEY_SESSIONS);
-
-            if (st && se) {
-                window.students = JSON.parse(st);
-                window.sessions = JSON.parse(se);
-            } else {
-                window.students = [...mockStudents];
-                window.sessions = [...mockSessions];
-                saveToStorage();
-            }
-        }
-
-        window.saveToStorage = function() {
-            localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(window.students));
-            localStorage.setItem(STORAGE_KEY_SESSIONS, JSON.stringify(window.sessions));
-        }
-
-        function resetDataPrompt() {
-            if (confirm('Khôi phục dữ liệu mẫu ban đầu?')) {
-                window.students = [...mockStudents];
-                window.sessions = [...mockSessions];
-                saveToStorage();
-                refreshAllViews();
-            }
-        }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.className = 'nav-btn px-4 py-2 rounded-2xl font-medium text-xs sm:text-sm transition-all text-slate-600 hover:text-lavender-700 hover:bg-white/60 flex items-center gap-2';
-            });
-            const activeNav = document.getElementById(`nav-${tabId}`);
-            if (activeNav) {
-                activeNav.className = 'nav-btn px-4 py-2 rounded-2xl font-medium text-xs sm:text-sm transition-all text-lavender-800 bg-lavender-100/90 shadow-sm flex items-center gap-2';
-            }
-
-            refreshAllViews();
-        }
-
-        function formatVND(amount) {
-            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount || 0);
-        }
-
-        function formatDateVi(dateStr) {
-            if (!dateStr) return '';
-            const [y, m, d] = dateStr.split('-');
-            return `${d}/${m}/${y}`;
-        }
-
-        function getStudentById(id) {
-            return window.students.find(s => s.id === id) || { name: 'Đã xóa', grade: '', subject: '' };
-        }
-
-        function renderDashboard() {
-            document.getElementById('stat-total-students').innerText = window.students.length;
-
-            const now = new Date();
-            const currentMonthStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-
-            const thisMonthSessions = window.sessions.filter(s => s.date.startsWith(currentMonthStr));
-            const completedThisMonth = thisMonthSessions.filter(s => s.status === 'COMPLETED');
-
-            document.getElementById('stat-month-sessions').innerText = thisMonthSessions.length;
-            document.getElementById('stat-month-completed').innerText = `Đã dạy: ${completedThisMonth.length} buổi`;
-
-            const earnedMonth = completedThisMonth.reduce((acc, curr) => acc + (curr.fee || 0), 0);
-            const expectedMonth = thisMonthSessions.reduce((acc, curr) => acc + (curr.fee || 0), 0);
-
-            document.getElementById('stat-month-income').innerText = formatVND(earnedMonth);
-            document.getElementById('stat-expected-income').innerText = `Dự kiến: ${formatVND(expectedMonth)}`;
-
-            const totalUnpaid = window.sessions.filter(s => s.status === 'COMPLETED' && !s.isPaid).reduce((acc, curr) => acc + (curr.fee || 0), 0);
-            document.getElementById('stat-pending-tuition').innerText = formatVND(totalUnpaid);
-
-            const upcomingListEl = document.getElementById('dashboard-upcoming-list');
-            upcomingListEl.innerHTML = '';
-
-            const sorted = [...window.sessions].sort((a, b) => new Date(`${a.date}T${a.time}`) - new Date(`${b.date}T${b.time}`));
-            const upcoming = sorted.filter(s => s.status === 'PLANNED').slice(0, 5);
-
-            if (upcoming.length === 0) {
-                upcomingListEl.innerHTML = `<p class="text-xs text-slate-400 italic py-4 text-center">Không có buổi học sắp tới nào.</p>`;
-            } else {
-                upcoming.forEach(s => {
-                    const st = getStudentById(s.studentId);
-                    upcomingListEl.innerHTML += `
-                        <div class="flex items-center justify-between p-3.5 bg-white/70 hover:bg-white/90 rounded-2xl transition border border-white/80 shadow-sm">
-                            <div class="flex items-center gap-3">
-                                <div class="bg-gradient-to-br from-lavender-100 to-babyblue-100 text-lavender-800 font-bold p-2.5 rounded-2xl text-center min-w-[55px]">
-                                    <div class="text-[11px] uppercase">${formatDateVi(s.date).slice(0, 5)}</div>
-                                    <div class="text-[10px] font-normal text-slate-500">${s.time}</div>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-slate-800 text-xs">${st.name}</h4>
-                                    <p class="text-[11px] text-slate-500">${st.subject || ''} • ${st.grade || ''} • ${s.durationHours}h</p>
-                                </div>
+                return `
+                    <div class="p-4 bg-white/90 rounded-2xl border border-purple-50 flex flex-wrap justify-between items-center gap-3 shadow-sm hover:shadow transition">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-receipt"></i>
                             </div>
-                            <div class="flex items-center gap-1">
-                                <button onclick="quickMarkStatus('${s.id}', 'COMPLETED')" title="Đánh dấu đã dạy" class="p-2 text-emerald-600 hover:bg-emerald-50 rounded-xl text-xs font-semibold">
-                                    <i class="fa-solid fa-check text-base"></i>
-                                </button>
-                                <button onclick="quickMarkStatus('${s.id}', 'CANCELLED')" title="Đánh dấu hủy/nghỉ" class="p-2 text-rose-500 hover:bg-rose-50 rounded-xl text-xs font-semibold">
-                                    <i class="fa-solid fa-xmark text-base"></i>
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-
-            const unpaidListEl = document.getElementById('dashboard-unpaid-list');
-            unpaidListEl.innerHTML = '';
-            const studentDebts = {};
-            window.sessions.filter(s => s.status === 'COMPLETED' && !s.isPaid).forEach(s => {
-                studentDebts[s.studentId] = (studentDebts[s.studentId] || 0) + (s.fee || 0);
-            });
-
-            const unpaidEntries = Object.entries(studentDebts);
-
-            if (unpaidEntries.length === 0) {
-                unpaidListEl.innerHTML = `<p class="text-xs text-emerald-600 font-medium py-2"><i class="fa-solid fa-circle-check mr-1"></i> Tất cả học phí đã được hoàn tất!</p>`;
-            } else {
-                unpaidEntries.forEach(([stId, debt]) => {
-                    const st = getStudentById(stId);
-                    unpaidListEl.innerHTML += `
-                        <div class="flex items-center justify-between py-2 border-b border-white/60 last:border-0">
                             <div>
-                                <p class="text-xs font-bold text-slate-800">${st.name}</p>
-                                <p class="text-[10px] text-slate-400">${st.phone || ''}</p>
-                            </div>
-                            <span class="text-xs font-bold text-amber-500">${formatVND(debt)}</span>
-                        </div>
-                    `;
-                });
-            }
-        }
-
-        function renderStudents() {
-            const gridEl = document.getElementById('student-grid');
-            const searchKeyword = document.getElementById('search-student').value.toLowerCase().trim();
-            gridEl.innerHTML = '';
-
-            const filtered = window.students.filter(s => 
-                s.name.toLowerCase().includes(searchKeyword) ||
-                (s.grade && s.grade.toLowerCase().includes(searchKeyword)) ||
-                (s.subject && s.subject.toLowerCase().includes(searchKeyword))
-            );
-
-            if (filtered.length === 0) {
-                gridEl.innerHTML = `<div class="col-span-full py-10 text-center text-slate-400 text-xs">Không tìm thấy học sinh phù hợp.</div>`;
-                return;
-            }
-
-            filtered.forEach(s => {
-                const stSessions = window.sessions.filter(se => se.studentId === s.id && se.status === 'COMPLETED');
-                const unpaidDebt = stSessions.filter(se => !se.isPaid).reduce((acc, curr) => acc + (curr.fee || 0), 0);
-
-                gridEl.innerHTML += `
-                    <div class="glass-card rounded-3xl p-5 hover:shadow-md transition space-y-3 flex flex-col justify-between border border-white/90">
-                        <div>
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h3 class="font-display font-bold text-slate-800 text-base">${s.name}</h3>
-                                    <div class="flex items-center gap-1.5 mt-1">
-                                        <span class="text-[10px] px-2.5 py-0.5 bg-lavender-100 text-lavender-800 font-semibold rounded-full">${s.grade || ''}</span>
-                                        <span class="text-[10px] px-2.5 py-0.5 bg-babyblue-100 text-babyblue-800 font-semibold rounded-full">${s.subject || ''}</span>
-                                    </div>
+                                <div class="flex items-center gap-2">
+                                    <h4 class="font-bold text-sm text-slate-800">${item.title}</h4>
+                                    ${state.selectedBabyId === 'FAMILY' && baby ? `<span class="text-[10px] bg-sky-100 text-sky-700 font-bold px-2 py-0.5 rounded-full">${baby.name}</span>` : ''}
                                 </div>
-                                <div class="flex items-center gap-1">
-                                    <button onclick="openEditStudent('${s.id}')" title="Sửa thông tin" class="p-1.5 text-slate-400 hover:text-lavender-600 rounded-xl">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                    <button onclick="deleteStudent('${s.id}')" title="Xóa" class="p-1.5 text-slate-400 hover:text-rose-500 rounded-xl">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="mt-3 space-y-1.5 text-xs text-slate-600 bg-white/60 p-3 rounded-2xl border border-white">
-                                <div class="flex justify-between">
-                                    <span class="text-slate-400">Công nợ học phí:</span>
-                                    <span class="font-bold ${unpaidDebt > 0 ? 'text-amber-500' : 'text-emerald-600'}">${formatVND(unpaidDebt)}</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-slate-400">Đã học:</span>
-                                    <span class="font-bold text-slate-700">${stSessions.length} buổi</span>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-md ${pClass}">${item.priority || 'Cần'}</span>
+                                    ${item.note ? `<span class="text-xs text-gray-400"><i class="fa-solid fa-note-sticky text-[10px]"></i> ${item.note}</span>` : ''}
                                 </div>
                             </div>
                         </div>
-
-                        <div class="pt-2">
-                            <button onclick="openStudentProfileModal('${s.id}')" class="w-full py-2.5 bg-gradient-to-r from-lavender-400 via-babyblue-400 to-softpink-300 hover:opacity-90 text-white font-bold text-xs rounded-2xl transition shadow-sm flex items-center justify-center gap-1.5 active:scale-95">
-                                <i class="fa-solid fa-folder-user"></i> Mở Hồ Sơ Tổng Hợp (360°)
-                            </button>
+                        <div class="flex items-center gap-4 ml-auto">
+                            <div class="text-right">
+                                <span class="font-extrabold text-rose-500 text-sm md:text-base">${Number(item.amount).toLocaleString('vi-VN')} VNĐ</span>
+                            </div>
+                            <div class="flex gap-1">
+                                <button onclick="openEditExpenseModal('${item.id}')" class="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 hover:bg-sky-100 flex items-center justify-center text-xs transition">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <button onclick="deleteExpense('${item.id}')" class="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 flex items-center justify-center text-xs transition">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
-            });
+            }).join('');
         }
 
-        function openStudentProfileModal(stId) {
-            activeProfileStudentId = stId;
-            const st = getStudentById(stId);
-
-            document.getElementById('prof-student-name').innerText = st.name;
-            document.getElementById('prof-student-grade').innerText = st.grade || 'Chưa xếp lớp';
-            document.getElementById('prof-student-subject').innerText = st.subject || 'Môn học';
-            document.getElementById('prof-student-phone').innerHTML = `<i class="fa-solid fa-phone text-[10px]"></i> ${st.phone || 'Chưa có SĐT'}`;
-
-            renderProfileSessionsTab(stId);
-            switchProfileTab('sessions');
-            document.getElementById('modal-student-profile').classList.remove('hidden');
+        // BABY MODAL ACTIONS
+        function openAddBabyModal() {
+            document.getElementById('editBabyId').value = '';
+            document.getElementById('babyModalTitle').innerText = 'Thêm Bé Mới';
+            document.getElementById('babyNameInput').value = '';
+            document.getElementById('babyDobInput').value = '';
+            openModal('babyModal');
         }
 
-        function switchProfileTab(tabName) {
-            document.querySelectorAll('.prof-subtab').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`prof-content-${tabName}`).classList.remove('hidden');
-
-            document.querySelectorAll('.prof-nav-btn').forEach(btn => {
-                btn.className = 'prof-nav-btn px-4 py-2 font-medium text-xs text-slate-500 hover:bg-slate-100 rounded-2xl transition';
-            });
-            document.getElementById(`prof-tab-${tabName}`).className = 'prof-nav-btn px-4 py-2 font-bold text-xs rounded-2xl bg-lavender-100 text-lavender-800 transition';
+        function openEditBabyModal() {
+            const baby = state.babies.find(b => b.id === state.selectedBabyId);
+            if (!baby) return;
+            document.getElementById('editBabyId').value = baby.id;
+            document.getElementById('babyModalTitle').innerText = 'Sửa Thông Tin Bé';
+            document.getElementById('babyNameInput').value = baby.name;
+            document.getElementById('babyDobInput').value = baby.dob || '';
+            openModal('babyModal');
         }
 
-        function renderProfileSessionsTab(stId) {
-            const stSessions = window.sessions.filter(s => s.studentId === stId && s.status === 'COMPLETED');
-            const unpaidAmount = stSessions.filter(s => !s.isPaid).reduce((acc, curr) => acc + (curr.fee || 0), 0);
-            const paidAmount = stSessions.filter(s => s.isPaid).reduce((acc, curr) => acc + (curr.fee || 0), 0);
+        function saveBaby() {
+            const id = document.getElementById('editBabyId').value;
+            const name = document.getElementById('babyNameInput').value.trim();
+            const dob = document.getElementById('babyDobInput').value;
 
-            document.getElementById('prof-stat-count').innerText = `${stSessions.length} buổi`;
-            document.getElementById('prof-stat-unpaid').innerText = formatVND(unpaidAmount);
-            document.getElementById('prof-stat-paid').innerText = formatVND(paidAmount);
+            if (!name) return alert('Vui lòng nhập tên bé');
 
-            const tbody = document.getElementById('prof-session-rows');
-            tbody.innerHTML = '';
-
-            if (stSessions.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">Chưa có lịch sử buổi học.</td></tr>`;
-                return;
+            if (id) {
+                const baby = state.babies.find(b => b.id === id);
+                if (baby) { baby.name = name; baby.dob = dob; }
+            } else {
+                const newId = 'b_' + Date.now();
+                state.babies.push({ id: newId, name, dob });
+                state.selectedBabyId = newId;
             }
-
-            stSessions.forEach(s => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td class="p-2.5 font-semibold text-slate-800">${formatDateVi(s.date)}</td>
-                        <td class="p-2.5 text-slate-600">${s.notes || 'Học định kỳ'}</td>
-                        <td class="p-2.5 font-bold text-slate-700">${formatVND(s.fee)}</td>
-                        <td class="p-2.5">
-                            ${s.isPaid ? `<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-700">Đã thu</span>` :
-                                         `<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-100 text-amber-700">Chưa thu</span>`}
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-
-        function renderSchedule() {
-            const tbody = document.getElementById('session-table-body');
-            const studentFilter = document.getElementById('filter-session-student').value;
-            const statusFilter = document.getElementById('filter-session-status').value;
-
-            const filterStudentSelect = document.getElementById('filter-session-student');
-            const currentVal = filterStudentSelect.value;
-            filterStudentSelect.innerHTML = `<option value="ALL">Tất cả học sinh</option>` + window.students.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
-            filterStudentSelect.value = currentVal || 'ALL';
-
-            tbody.innerHTML = '';
-            let filtered = [...window.sessions];
-
-            if (studentFilter !== 'ALL') filtered = filtered.filter(s => s.studentId === studentFilter);
-            if (statusFilter !== 'ALL') filtered = filtered.filter(s => s.status === statusFilter);
-
-            filtered.sort((a, b) => new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`));
-            document.getElementById('session-count-badge').innerText = `${filtered.length} buổi`;
-
-            if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="7" class="text-center py-8 text-slate-400">Không tìm thấy buổi học nào.</td></tr>`;
-                return;
-            }
-
-            filtered.forEach(s => {
-                const st = getStudentById(s.studentId);
-                let statusBadge = s.status === 'PLANNED' ? `<span class="px-3 py-1 text-[11px] font-bold rounded-full bg-babyblue-100 text-babyblue-700">Chưa dạy</span>` :
-                                  s.status === 'COMPLETED' ? `<span class="px-3 py-1 text-[11px] font-bold rounded-full bg-emerald-100 text-emerald-700">Đã dạy</span>` :
-                                  `<span class="px-3 py-1 text-[11px] font-bold rounded-full bg-rose-100 text-rose-700">Hủy / Nghỉ</span>`;
-
-                tbody.innerHTML += `
-                    <tr class="hover:bg-white/60 transition">
-                        <td class="px-5 py-3.5">
-                            <div class="font-bold text-slate-800">${formatDateVi(s.date)}</div>
-                            <div class="text-[10px] text-slate-400">${s.time}</div>
-                        </td>
-                        <td class="px-5 py-3.5 font-bold text-slate-800">${st.name}</td>
-                        <td class="px-5 py-3.5">${st.subject || ''}</td>
-                        <td class="px-5 py-3.5">${s.durationHours} giờ</td>
-                        <td class="px-5 py-3.5 font-semibold text-slate-800">${formatVND(s.fee)}</td>
-                        <td class="px-5 py-3.5">${statusBadge}</td>
-                        <td class="px-5 py-3.5 text-right">
-                            <button onclick="openEditSession('${s.id}')" class="p-1.5 text-slate-400 hover:text-lavender-600"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button onclick="deleteSession('${s.id}')" class="p-1.5 text-slate-400 hover:text-rose-500"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-
-        window.openModal = function(modalId) {
-            if (modalId === 'modal-add-student') {
-                document.getElementById('form-student').reset();
-                document.getElementById('student-id').value = '';
-                document.getElementById('modal-student-title').innerText = 'Thêm học sinh mới';
-            } else if (modalId === 'modal-add-session') {
-                document.getElementById('form-session').reset();
-                document.getElementById('session-id').value = '';
-                const select = document.getElementById('session-student-id');
-                select.innerHTML = window.students.map(s => `<option value="${s.id}">${s.name} (${s.grade || ''})</option>`).join('');
-                document.getElementById('session-date').value = new Date().toISOString().split('T')[0];
-                document.getElementById('session-time').value = "18:00";
-                if (window.students.length > 0) autoFillSessionRate();
-            }
-            document.getElementById(modalId).classList.remove('hidden');
-        }
-
-        window.closeModal = function(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-        }
-
-        window.autoFillSessionRate = function() {
-            const stId = document.getElementById('session-student-id').value;
-            const st = getStudentById(stId);
-            if (st) {
-                document.getElementById('session-hours').value = st.defaultDuration || 1.5;
-                document.getElementById('session-fee').value = st.rate || 200000;
-            }
-        }
-
-        window.calculateSessionFee = function() {
-            const stId = document.getElementById('session-student-id').value;
-            const st = getStudentById(stId);
-            const hours = parseFloat(document.getElementById('session-hours').value) || 1.5;
-            if (st && st.defaultDuration && st.rate) {
-                const calculated = (st.rate / st.defaultDuration) * hours;
-                document.getElementById('session-fee').value = Math.round(calculated / 5000) * 5000;
-            }
-        }
-
-        window.saveStudent = function(e) {
-            e.preventDefault();
-            const id = document.getElementById('student-id').value || 'st_' + Date.now();
-            const name = document.getElementById('student-name').value.trim();
-            const grade = document.getElementById('student-grade').value.trim();
-            const subject = document.getElementById('student-subject').value.trim();
-            const rate = parseFloat(document.getElementById('student-rate').value) || 0;
-            const defaultDuration = parseFloat(document.getElementById('student-duration').value) || 1.5;
-            const phone = document.getElementById('student-phone').value.trim();
-            const notes = document.getElementById('student-notes').value.trim();
-
-            const existingIdx = window.students.findIndex(s => s.id === id);
-            const studentData = { id, name, grade, subject, rate, defaultDuration, phone, notes };
-
-            if (existingIdx >= 0) window.students[existingIdx] = studentData;
-            else window.students.push(studentData);
 
             saveToStorage();
-            closeModal('modal-add-student');
-            refreshAllViews();
+            closeModal('babyModal');
+            populateBabyDropdown();
+            init();
         }
 
-        window.openEditStudent = function(id) {
-            const st = window.students.find(s => s.id === id);
-            if (!st) return;
-            document.getElementById('student-id').value = st.id;
-            document.getElementById('student-name').value = st.name;
-            document.getElementById('student-grade').value = st.grade || '';
-            document.getElementById('student-subject').value = st.subject || '';
-            document.getElementById('student-rate').value = st.rate;
-            document.getElementById('student-duration').value = st.defaultDuration || 1.5;
-            document.getElementById('student-phone').value = st.phone || '';
-            document.getElementById('student-notes').value = st.notes || '';
-            document.getElementById('modal-student-title').innerText = 'Chỉnh sửa học sinh';
-            document.getElementById('modal-add-student').classList.remove('hidden');
-        }
-
-        window.deleteStudent = function(id) {
-            if (confirm('Xóa học sinh này khỏi hệ thống?')) {
-                window.students = window.students.filter(s => s.id !== id);
-                window.sessions = window.sessions.filter(se => se.studentId !== id);
+        function deleteCurrentBaby() {
+            if (confirm('Bạn có chắc chắn muốn xóa bé này cùng toàn bộ dữ liệu chi tiêu liên quan?')) {
+                state.babies = state.babies.filter(b => b.id !== state.selectedBabyId);
+                state.expenses = state.expenses.filter(e => e.babyId !== state.selectedBabyId);
+                state.selectedBabyId = 'FAMILY';
                 saveToStorage();
-                refreshAllViews();
+                populateBabyDropdown();
+                init();
             }
         }
 
-        window.saveSession = function(e) {
-            e.preventDefault();
-            const id = document.getElementById('session-id').value || 'se_' + Date.now();
-            const studentId = document.getElementById('session-student-id').value;
-            const date = document.getElementById('session-date').value;
-            const time = document.getElementById('session-time').value;
-            const durationHours = parseFloat(document.getElementById('session-hours').value) || 1.5;
-            const fee = parseFloat(document.getElementById('session-fee').value) || 0;
-            const status = document.getElementById('session-status').value;
-            const notes = document.getElementById('session-notes').value.trim();
+        // EXPENSE ITEM MODAL ACTIONS
+        function populateBabyDropdown() {
+            const select = document.getElementById('expBabySelect');
+            select.innerHTML = state.babies.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
+        }
 
-            const existingIdx = window.sessions.findIndex(s => s.id === id);
-            const existingSession = window.sessions[existingIdx] || {};
+        function openAddExpenseModal() {
+            document.getElementById('editExpenseId').value = '';
+            document.getElementById('expenseModalTitle').innerText = `Thêm Chi Tiêu (${state.activeCategory})`;
+            document.getElementById('expCategorySelect').value = state.activeCategory;
+            document.getElementById('expTitleInput').value = '';
+            document.getElementById('expAmountInput').value = '';
+            document.getElementById('expNoteInput').value = '';
+            if (state.selectedBabyId !== 'FAMILY') {
+                document.getElementById('expBabySelect').value = state.selectedBabyId;
+            }
+            openModal('expenseModal');
+        }
 
-            const sessionData = { id, studentId, date, time, durationHours, fee, status, isPaid: existingSession.isPaid || false, notes };
+        function openEditExpenseModal(expId) {
+            const exp = state.expenses.find(e => e.id === expId);
+            if (!exp) return;
 
-            if (existingIdx >= 0) window.sessions[existingIdx] = sessionData;
-            else window.sessions.push(sessionData);
+            document.getElementById('editExpenseId').value = exp.id;
+            document.getElementById('expenseModalTitle').innerText = 'Sửa Khoản Chi Tiêu';
+            document.getElementById('expBabySelect').value = exp.babyId;
+            document.getElementById('expCategorySelect').value = exp.category;
+            document.getElementById('expTitleInput').value = exp.title;
+            document.getElementById('expAmountInput').value = exp.amount;
+            document.getElementById('expPrioritySelect').value = exp.priority || 'Cần';
+            document.getElementById('expNoteInput').value = exp.note || '';
 
+            openModal('expenseModal');
+        }
+
+        function saveExpense() {
+            const id = document.getElementById('editExpenseId').value;
+            const babyId = document.getElementById('expBabySelect').value;
+            const category = document.getElementById('expCategorySelect').value;
+            const title = document.getElementById('expTitleInput').value.trim();
+            const amount = document.getElementById('expAmountInput').value;
+            const priority = document.getElementById('expPrioritySelect').value;
+            const note = document.getElementById('expNoteInput').value.trim();
+
+            if (!title || !amount) return alert('Vui lòng điền tên món đồ và số tiền');
+
+            if (id) {
+                const exp = state.expenses.find(e => e.id === id);
+                if (exp) {
+                    exp.babyId = babyId;
+                    exp.category = category;
+                    exp.title = title;
+                    exp.amount = Number(amount);
+                    exp.priority = priority;
+                    exp.note = note;
+                }
+            } else {
+                state.expenses.push({
+                    id: 'e_' + Date.now(),
+                    babyId, category, title, amount: Number(amount), priority, note
+                });
+            }
+
+            state.activeCategory = category; // Auto switch active view to saved category
             saveToStorage();
-            closeModal('modal-add-session');
-            refreshAllViews();
-            if (activeProfileStudentId === studentId) renderProfileSessionsTab(studentId);
+            closeModal('expenseModal');
+            renderCategoryGrid();
+            renderMainView();
         }
 
-        window.openEditSession = function(id) {
-            const se = window.sessions.find(s => s.id === id);
-            if (!se) return;
-            openModal('modal-add-session');
-            document.getElementById('session-id').value = se.id;
-            document.getElementById('session-student-id').value = se.studentId;
-            document.getElementById('session-date').value = se.date;
-            document.getElementById('session-time').value = se.time;
-            document.getElementById('session-hours').value = se.durationHours;
-            document.getElementById('session-fee').value = se.fee;
-            document.getElementById('session-status').value = se.status;
-            document.getElementById('session-notes').value = se.notes || '';
-        }
-
-        window.deleteSession = function(id) {
-            if (confirm('Xóa buổi học này?')) {
-                window.sessions = window.sessions.filter(s => s.id !== id);
+        function deleteExpense(expId) {
+            if (confirm('Bạn muốn xóa khoản chi này?')) {
+                state.expenses = state.expenses.filter(e => e.id !== expId);
                 saveToStorage();
-                refreshAllViews();
+                renderMainView();
             }
         }
 
-        window.quickMarkStatus = function(id, newStatus) {
-            const se = window.sessions.find(s => s.id === id);
-            if (se) {
-                se.status = newStatus;
-                saveToStorage();
-                refreshAllViews();
-            }
+        // Helpers
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('flex');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('flex');
+            document.getElementById(id).classList.add('hidden');
         }
 
-        window.refreshAllViews = function() {
-            renderDashboard();
-            renderStudents();
-            renderSchedule();
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            initData();
-            refreshAllViews();
-        });
+        // Run on load
+        window.onload = init;
     </script>
 </body>
 </html>
